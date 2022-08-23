@@ -13,17 +13,17 @@ import { TodoModule } from './todo/todo.module';
       envFilePath: '.env'
     }),
     TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: process.env.MYSQL_HOST,
-    port: +process.env.MYSQL_PORT,
-    username: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DB,
-    synchronize: true,
-    autoLoadEntities: true
-  })
-],
+      type: 'mysql',
+      host: process.env.MYSQL_HOST,
+      port: +process.env.MYSQL_PORT,
+      username: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DB,
+      synchronize: true,
+      autoLoadEntities: true
+    })
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

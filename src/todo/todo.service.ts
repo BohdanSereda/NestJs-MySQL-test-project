@@ -10,7 +10,7 @@ export class TodoService {
   constructor(
     @InjectRepository(Todo)
     private readonly todoRepository: Repository<Todo>
-  ){}
+  ) { }
   create(createTodoDto: CreateTodoDto, user_id: number) {
     const todo = this.todoRepository.create(createTodoDto);
     todo.userId = user_id
@@ -33,15 +33,15 @@ export class TodoService {
       }
     })
 
-    if(!todo){
+    if (!todo) {
       throw new NotFoundException(`Todo not found`)
     }
     return todo
   }
 
   async update(id: number, updateTodoDto: UpdateTodoDto, userId: number) {
-    const queryData = await this.todoRepository.update({id, userId}, updateTodoDto)
-    if(!queryData.affected){
+    const queryData = await this.todoRepository.update({ id, userId }, updateTodoDto)
+    if (!queryData.affected) {
       throw new NotFoundException(`Todo not found`)
     }
     const todo = await this.findOne(id, userId)
@@ -53,7 +53,7 @@ export class TodoService {
     return this.todoRepository.remove(todo)
   }
 
-  async changeStatus(id: number, userId: number){
+  async changeStatus(id: number, userId: number) {
     const todo = await this.findOne(id, userId)
     todo.isCompleted = !todo.isCompleted
     return this.todoRepository.save(todo)
