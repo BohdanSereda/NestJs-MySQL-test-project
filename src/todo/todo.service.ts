@@ -11,6 +11,15 @@ export class TodoService {
     @InjectRepository(Todo)
     private readonly todoRepository: Repository<Todo>
   ) { }
+
+  formatePopulateQuery (userId: number, completed: string){
+    if (completed === undefined) {
+      return {where: {userId}}
+    }
+    const isCompleted = completed === 'true'
+    return {where: {userId, isCompleted}}
+  }
+
   create(createTodoDto: CreateTodoDto, user_id: number) {
     const todo = this.todoRepository.create(createTodoDto);
     todo.userId = user_id
@@ -18,11 +27,7 @@ export class TodoService {
   }
 
   findAll(userId: number, completed: string) {
-    if (completed === undefined) {
-      return this.todoRepository.find({ where: { userId } });
-    }
-    const isCompleted = completed === 'true'
-    return this.todoRepository.find({ where: { userId, isCompleted } });
+    return this.todoRepository.find(this.formatePopulateQuery(userId, completed));
   }
 
   async findOne(id: number, userId: number) {
