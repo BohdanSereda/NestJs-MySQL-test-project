@@ -12,7 +12,7 @@ export class TodoService {
     private readonly todoRepository: Repository<Todo>
   ) { }
 
-  formatePopulateQuery (userId: number, completed: string){
+  formateQuery (userId: number, completed: string){
     if (completed === undefined) {
       return {where: {userId}}
     }
@@ -27,7 +27,7 @@ export class TodoService {
   }
 
   findAll(userId: number, completed: string) {
-    return this.todoRepository.find(this.formatePopulateQuery(userId, completed));
+    return this.todoRepository.find(this.formateQuery(userId, completed));
   }
 
   async findOne(id: number, userId: number) {
