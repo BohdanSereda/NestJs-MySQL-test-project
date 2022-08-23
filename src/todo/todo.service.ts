@@ -17,21 +17,16 @@ export class TodoService {
     return this.todoRepository.save(todo)
   }
 
-  findAll(userId: number) {
-    return this.todoRepository.find({
-      where: {
-        userId
-      }
-    });
+  findAll(userId: number, completed: string) {
+    if (completed === undefined) {
+      return this.todoRepository.find({ where: { userId } });
+    }
+    const isCompleted = completed === 'true'
+    return this.todoRepository.find({ where: { userId, isCompleted } });
   }
 
   async findOne(id: number, userId: number) {
-    const todo = await this.todoRepository.findOne({
-      where: {
-        id,
-        userId
-      }
-    })
+    const todo = await this.todoRepository.findOne({ where: { id, userId } })
 
     if (!todo) {
       throw new NotFoundException(`Todo not found`)
