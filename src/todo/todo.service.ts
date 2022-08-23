@@ -12,12 +12,12 @@ export class TodoService {
     private readonly todoRepository: Repository<Todo>
   ) { }
 
-  formateQuery (userId: number, completed: string){
+  formateQuery(userId: number, completed: string) {
     if (completed === undefined) {
-      return {where: {userId}}
+      return { where: { userId } }
     }
     const isCompleted = completed === 'true'
-    return {where: {userId, isCompleted}}
+    return { where: { userId, isCompleted } }
   }
 
   create(createTodoDto: CreateTodoDto, user_id: number) {
@@ -53,9 +53,13 @@ export class TodoService {
     return this.todoRepository.remove(todo)
   }
 
-  async changeStatus(id: number, userId: number) {
+  async changeStatus(id: number, userId: number, completed: string) {
     const todo = await this.findOne(id, userId)
-    todo.isCompleted = !todo.isCompleted
+    if (completed === undefined || completed === "false") {
+      todo.isCompleted = !todo.isCompleted
+    } else {
+      todo.isCompleted = true
+    }
     return this.todoRepository.save(todo)
   }
 }

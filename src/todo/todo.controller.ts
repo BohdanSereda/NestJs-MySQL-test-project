@@ -41,9 +41,10 @@ export class TodoController {
   @Patch(':id')
   changeStatus(
     @Param('id') id: string,
-    @Headers('userId') userId: string
+    @Headers('userId') userId: string,
+    @Query('completed') completed: string
   ) {
-    return this.todoService.changeStatus(+id, +userId);
+    return this.todoService.changeStatus(+id, +userId, completed);
   }
 
   @Delete(':id')
