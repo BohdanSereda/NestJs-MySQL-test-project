@@ -11,6 +11,14 @@ requests:
 - PATCH: http://localhost:3000/todo/:id?completed=${boolean} - changes status of the todo 
 - DELETE: http://localhost:3000/todo:/id - removes one user todo by id
 
+request body: 
+{
+  "title": string,
+  "isCompleted": boolean
+}
+
+user id's passes in the request header
+
 ## Installation
 
 ```bash
